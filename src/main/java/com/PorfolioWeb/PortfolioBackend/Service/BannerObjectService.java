@@ -1,8 +1,11 @@
 package com.PorfolioWeb.PortfolioBackend.Service;
 
 import com.PorfolioWeb.PortfolioBackend.Model.BannerObject;
+import com.PorfolioWeb.PortfolioBackend.Model.UlListObject;
 import com.PorfolioWeb.PortfolioBackend.Repository.BannerObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,4 +36,5 @@ public class BannerObjectService implements IBannerObjectService {
     public Optional<BannerObject> SearchObject(Long id) {
         return BannRep.findById(id);
     }
+
 }

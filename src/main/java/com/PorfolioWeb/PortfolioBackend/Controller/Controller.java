@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("api/")
+
 @RestController()
+@RequestMapping("api/")
+@CrossOrigin(origins = {"http://localhost:4200"}, maxAge = 3600)
 public class Controller {
 
     @Autowired
@@ -99,8 +101,6 @@ public class Controller {
     public ResponseEntity<?> GetPersList() {
         return ResponseEntity.ok(PersServ.GetList());
     }
-
-
 
     @GetMapping("personal/getbyid/{id}")
     public Optional<PersonalInfoObject> GetPersbyid(@PathVariable Long id) {
