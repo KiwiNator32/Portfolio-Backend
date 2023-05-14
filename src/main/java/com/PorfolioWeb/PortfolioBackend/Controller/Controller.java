@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -101,7 +102,6 @@ public class Controller {
     public ResponseEntity<?> GetPersList() {
         return ResponseEntity.ok(PersServ.GetList());
     }
-
     @GetMapping("personal/getbyid/{id}")
     public Optional<PersonalInfoObject> GetPersbyid(@PathVariable Long id) {
         return PersServ.SearchObject(id);
@@ -114,4 +114,44 @@ public class Controller {
     public void DeleteOfPersList(@RequestParam Long id ) {
         PersServ.DeleteObject(id);
     }
+
+
+    @Autowired
+    private IUserObjectService UserServ;
+    @GetMapping ("user/get")
+    public ResponseEntity<?> GetUserList() {
+        return ResponseEntity.ok(UserServ.GetList());
+    }
+    @PostMapping ("user/modify/new")
+    public void AddToUserList(@RequestBody UserObject obj ) {
+        UserServ.NewObject(obj);
+    }
+    @PostMapping ("user/auth")
+    public boolean UserAuth(@RequestBody UserObject obj ) {
+        boolean result = false;
+
+        for (UserObject user: UserServ.GetList() ) {
+            if (Objects.equals(user.getUser(), obj.getUser()) && Objects.equals(user.getPassword(), obj.getPassword())) {
+                    result = true;
+                    break;
+            }
+        }
+        return result;
+    }
+
+    @Autowired
+    private ISkillObjectService SkillServ;
+    @GetMapping ("skill/get")
+    public ResponseEntity<?> GetSkillList() {
+        return ResponseEntity.ok(SkillServ.GetList());
+    }
+    @PostMapping ("skill/modify/new")
+    public void AddToSkillList(@RequestBody SkillObject obj ) {
+        SkillServ.NewObject(obj);
+    }
+    @DeleteMapping ("skill/modify/delete")
+    public void DeleteOfSkillList(@RequestParam Long id ) {
+        SkillServ.DeleteObject(id);
+    }
+
 }
